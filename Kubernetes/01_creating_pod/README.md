@@ -80,7 +80,7 @@ You should get at least one node.
    ![img](./img/pod_definition_changed.png)
 
 ## Task 5. Examining pod logs and running a command inside the pod.
-   There is a command *['sh', '-c', 'echo Welcome to Kubernetes! && sleep 3600'] * in the pod definition. The pod should write *'Welcome to Kubernetes!'* to the logs. Let's see.
+   There is a command `['sh', '-c', 'echo Welcome to Kubernetes! && sleep 3600']` in the pod definition. The pod should write *'Welcome to Kubernetes!'* to the logs. Let's see.
 
 1. Type `kubectl logs my-pod` and press **Enter**.
    ![img](./img/logs.png)
