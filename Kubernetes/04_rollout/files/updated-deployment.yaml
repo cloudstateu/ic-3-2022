@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollout
+  labels:
+    app: rollout
+  annotations:
+    kubernetes.io/change-cause: "Image changed to 3.0.0"
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: rollout
+  template:
+    metadata:
+      labels:
+        app: rollout
+    spec:
+      containers:
+      - name: app
+        image: macborowy/workshop-rollout:3.0.0
+        ports:
+        - containerPort: 8080
