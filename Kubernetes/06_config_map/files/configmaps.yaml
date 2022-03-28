@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-backend
+data:
+  appsettings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      },
+      "AllowedHosts": "*"
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-frontend
+data:
+  company_name: "Chmurowisko"
+  background_color: blue
+  dark_mode: "false"

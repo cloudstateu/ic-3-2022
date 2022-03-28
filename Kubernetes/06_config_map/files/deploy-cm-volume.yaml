@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-map-volume
+  labels:
+    component: backend
+    version: env-vars
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: backend
+      version: env-vars
+  template:
+    metadata:
+      labels:
+        component: backend
+        version: env-vars
+    spec:
+      containers:
+        - name: app
+          image: nginx
+          volumeMounts:
+          - name: cm-backend
+            mountPath: /mnt/config
+      volumes:
+        - name: cm-backend
+          configMap:
+            name: cm-backend

@@ -1,0 +1,13 @@
+FROM node:latest
+
+WORKDIR /usr/src/frontend/
+
+COPY package.json .
+
+COPY backend.js .
+
+RUN npm install
+
+EXPOSE 8080
+
+CMD npm start

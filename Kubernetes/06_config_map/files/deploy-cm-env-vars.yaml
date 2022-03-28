@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-map-env-vars
+  labels:
+    component: frontend
+    version: env-vars
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: frontend
+      version: env-vars
+  template:
+    metadata:
+      labels:
+        component: frontend
+        version: env-vars
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        env:
+        - name: APP_COMPANY_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: cm-frontend
+              key: company_name
+        - name: APP_BACKGROUND_COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: cm-frontend
+              key: background_color
+        - name: APP_DARK_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: cm-frontend
+              key: dark_mode

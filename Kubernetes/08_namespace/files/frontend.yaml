@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-cm
+  namespace: frontend
+data:
+  BACKEND_ENDPOINT_URL: "http://backend-svc.backend/info"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: frontend
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: danchmpis/chm-k8s-namespace-frontend
+          ports:
+            - containerPort: 8080
+          env:
+            - name: BACKEND_ENDPOINT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-cm
+                  key: BACKEND_ENDPOINT_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: frontend
+  name: frontend-svc
+  labels:
+    app: frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: frontend

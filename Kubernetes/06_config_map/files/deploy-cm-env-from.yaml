@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-map-env-from
+  labels:
+    component: frontend
+    version: env-from
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: frontend
+      version: env-from
+  template:
+    metadata:
+      labels:
+        component: frontend
+        version: env-from
+    spec:
+      containers:
+        - name: app
+          image: nginx
+          envFrom:
+            - prefix: APP_ENV_FROM_
+              configMapRef:
+                name: cm-frontend

@@ -1,0 +1,15 @@
+{
+    "name": "webapp",
+    "version": "1.0.0",
+    "description": "WebApp",
+    "main": "frontend.js",
+    "scripts": {
+      "start": "node frontend.js"
+    },
+    "author": "Chmurowisko",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "axios": "0.24.0"
+    }
+  }
