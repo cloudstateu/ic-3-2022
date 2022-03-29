@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: stress-
+spec:
+  containers:
+  - name: cpu-stress
+    image: vish/stress
+    resources:
+      requests:
+        cpu: "0.25"
+        memory: 128Mi
+      limits:
+        cpu: "1"
+        memory: 256Mi
+    args:
+    - -cpus
+    - "2"

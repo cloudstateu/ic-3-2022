@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: client-app
+        app.kubernetes.io/version: "5.7.21"
+        app.kubernetes.io/managed-by: manual
+        app.kubernetes.io/created-by: dev-team
+    spec:
+      containers:
+        - name: frontend
+          image: hashicorp/http-echo
+          args:
+            - "-text=frontend"
+          ports:
+            - containerPort: 5678
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: app
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: client-app
+  ports:
+  - port: 80
+    targetPort: 5678
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app
+        app.kubernetes.io/component: api
+        app.kubernetes.io/part-of: client-app
+        app.kubernetes.io/version: "5.7.21"
+        app.kubernetes.io/managed-by: manual
+        app.kubernetes.io/created-by: dev-team
+    spec:
+      containers:
+        - name: api
+          image: hashicorp/http-echo
+          args:
+            - "-text=api"
+          ports:
+            - containerPort: 5678
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: app
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: client-app
+  ports:
+  - port: 80
+    targetPort: 5678

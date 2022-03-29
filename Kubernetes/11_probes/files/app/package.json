@@ -1,0 +1,14 @@
+{
+    "name": "webapp",
+    "version": "1.0.0",
+    "description": "WebApp",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "author": "Chmurowisko",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+  }
