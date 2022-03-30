@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+        context: ./packages/frontend
+        dockerfile: Dockerfile_dev
+    volumes:
+    - "./packages/frontend:/home/app"
+    - "/home/app/node_modules"
+    ports:
+    - "8080:80"
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile_dev
+    volumes:
+    - "./packages/api:/home/app"
+    - "/home/app/node_modules"
+    ports:
+      - "8888:8888"

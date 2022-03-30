@@ -1,0 +1,25 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+.ant-layout {
+  min-height: 100vh;
+}
+.ant-layout-header {
+  color: white;
+}
+.ant-layout-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px;
+  padding: 25px;
+  background: #fff;
+  text-align: center;
+}
+.ant-layout-footer {
+  text-align: center;
+}
+.small {
+  font-size: 0.85rem;
+  color: #bbb;
+}

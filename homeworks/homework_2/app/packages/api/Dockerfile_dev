@@ -1,0 +1,11 @@
+FROM node:slim
+
+WORKDIR /home/app
+
+RUN npm install -g nodemon
+
+COPY package*.json .
+RUN npm ci --slient
+
+EXPOSE 8888
+CMD nodemon

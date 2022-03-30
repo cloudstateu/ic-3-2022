@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+  namespace: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      initContainers:
+      - name: sync-secrets
+        image: busybox
+        command: ['sh', '-c', 'until ls ./mnt/secrets-store; do echo Waiting for secrets to sync && sleep 1; done']
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+      containers:
+      - image: macborowy/chmurobank-api
+        name: app
+        ports:
+        - containerPort: 8888
+        envFrom:
+        - secretRef:
+            name: db-secrets
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8888
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8888
+      volumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname"

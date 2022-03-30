@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-azure-database-connection-details
+  namespace: backend
+data:
+  PGUSER: postgres
+  PGHOST: <azure-database-for-postgres-server-name>
+  PGPASSWORD: Chmurowisko123
+  PGDATABASE: bank
+  PGPORT: "5432"
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: worker
+  namespace: backend
+spec:
+  jobTemplate:
+    metadata:
+      name: worker
+    spec:
+      template:
+        spec:
+          containers:
+          - image: macborowy/chmurobank-exchangerates-downloader
+            name: worker
+            resources: {}
+            envFrom:
+              - configMapRef:
+                  name: cm-azure-database-connection-details
+          restartPolicy: OnFailure
+  schedule: "0 5 * * *"
