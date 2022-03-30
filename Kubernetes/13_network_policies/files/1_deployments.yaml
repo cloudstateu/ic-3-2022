@@ -1,0 +1,148 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: np
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: texts-cm
+  namespace: np
+data:
+  service1Text: "Frontend"
+  service2Text: "Backend"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front
+  namespace: np
+  labels:
+    app: front
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http
+  selector:
+    app: front
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2
+  namespace: np
+  labels:
+    app: app2
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http
+  selector:
+    app: app2
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1
+  namespace: np
+  labels:
+    app: app1
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http
+  selector:
+    app: app1
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+  namespace: np
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+        id: frontend
+    spec:
+      containers:
+      - name: front
+        image: przemekmalak/multitool
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+          - name: RETURN_TEXT
+            valueFrom:
+              configMapKeyRef:
+                name: texts-cm
+                key: service1Text
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2
+  namespace: np
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+        id: backend
+    spec:
+      containers:
+      - name: app2
+        image: przemekmalak/multitool
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+          - name: RETURN_TEXT
+            valueFrom:
+              configMapKeyRef:
+                name: texts-cm
+                key: service2Text
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  namespace: np
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+        id: backend
+    spec:
+      containers:
+      - name: app1
+        image: przemekmalak/multitool
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+          - name: RETURN_TEXT
+            valueFrom:
+              configMapKeyRef:
+                name: texts-cm
+                key: service2Text

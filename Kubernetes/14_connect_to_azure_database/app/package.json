@@ -1,0 +1,16 @@
+{
+  "name": "express-postgres",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "pg": "8.5.1",
+    "morgan": "1.10.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

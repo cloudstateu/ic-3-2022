@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netcoresample
+  labels:
+    app: sample
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: sample
+  template:
+    metadata:
+      labels:
+        app: sample
+    spec:
+      containers:
+        - name: netcoresample
+          image: mcr.microsoft.com/dotnet/core/samples:aspnetapp
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: "/mnt/test"
+              name: volume
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: azurefile
