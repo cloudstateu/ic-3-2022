@@ -21,7 +21,7 @@ Do aplikacji z pracy domowej #1 został dodany Worker. Worker jest programem, kt
 
 1. **Obrazy kontenerów z aplikacjami**
 
-    Obrazy kontenerów dla aplikacji Frontend, API oraz Worker znajdujące się w repozytoriach [macborowy/chmurobank-front:latest](), [macborowy/chmurobank-api:latest](), [macborowy/chmurobank-exchangerates-downloader:latest]() zostały zaktualizowane do najnowszej wersji.
+    Obrazy kontenerów dla aplikacji Frontend, API oraz Worker znajdujące się w repozytoriach [macborowy/chmurobank-front:latest](https://hub.docker.com/r/macborowy/chmurobank-front), [macborowy/chmurobank-api:latest](https://hub.docker.com/r/macborowy/chmurobank-api), [macborowy/chmurobank-exchangerates-downloader:latest](https://hub.docker.com/r/macborowy/chmurobank-exchangerates-downloader) zostały zaktualizowane do najnowszej wersji.
 
     Jeśli nie chcesz budować kontenerów samodzielnie - skorzystaj z gotowych. Są one zbudowane z tej samej wersji kodu co dostępna w katalogu [./app](./app)
 
