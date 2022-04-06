@@ -208,7 +208,7 @@ Sposób tworzenia usługi Azure Database for Postgres oraz podłączenia do serw
 <details>
   <summary><b>Odpowiedzi</b></summary>
 
-  W tym zadaniu wszystkie odpowiedzi zawarte są w treści lub w [treści ćwiczenia wykonywanego podczas spotkania](https://github.com/cloudstateu/ic-1-2022/tree/main/Kubernetes/12_connect_to_azure_database) :smile:
+  W tym zadaniu wszystkie odpowiedzi zawarte są w treści lub w [treści ćwiczenia wykonywanego podczas spotkania](https://github.com/cloudstateu/ic-3-2022/tree/main/Kubernetes/14_connect_to_azure_database) :smile:
 
 </details>
 
